@@ -14,47 +14,108 @@ html, body {
     margin: auto;
 }
 
-#toggle-container{
+#point-toggle-container{
 	position: absolute;
-	width:200px;
+	width:150px;
 	height:15%;
+    padding:10px;
 }
-
-#menu {
-    background: #fff;
+#emoji-toggle-container{
     position: absolute;
-    z-index: 1;
-    top: 10px;
-    left: 10px;
-    width: 120px;
+    width:150px;
+    left:100px;
+    height:15%;
+    padding:10px;
+    padding-top: 40px;
+}
+#area-toggle-container{
+    position: absolute;
+    left:300px;
+    width:200px;
+    height:15%;
+    padding:10px;
+}
+#pop-toggle-container{
+    position: absolute;
+    left:520px;
+    width:200px;
+    height:15%;
+    padding:10px;
+    padding-top: 25px;
 }
 
-#menu a {
-    font-size: 11px;
-    color: #404040;
+.toggle-container ul{
+    position:relative;
+    padding: 5px;
+    list-style: none;
+    height:20px;
+    margin:0;
+}
+
+.toggle-container ul li p{
+    display: inline;
+    position:relative;
+    left:25px;
+    text-align: left;
+    font-size: 14px;
+    list-style: none;
+    margin:0;
+}
+
+.toggle-container ul li span{
     display: block;
-    margin: 3px;
-    padding: 0;
-    padding: 2px;
-    text-decoration: none;
-    background-color: #dbdbdb;
+    position:absolute;
+    width:20px;
+    font-size:18px;
+    left:10px;
+    color:rgb(100,100,100);
+    cursor:pointer
+}
+
+.toggle-container p{
+    font-size: 9px;
+    margin:0;
     text-align: center;
 }
 
-#menu a:last-child {
-    border: none;
+#emoji-toggle-container li p, span {
+    font-size: 12px;
 }
 
-#menu a:hover {
-    background-color: #b7b7b7;
-    color: #404040;
+#gradient-legend{
+    position:relative;
+    width:100px;
+    height: 10px;
+    top:10px;
+    left:30px;
+    background: -webkit-linear-gradient(left, #4575b4, #91bfdb, #e0f3f8, #ffffbf, #fee090, #fc8d59, #d73027);
+    background: linear-gradient(to right, #4575b4, #91bfdb, #e0f3f8, #ffffbf, #fee090, #fc8d59, #d73027);
 }
 
-#menu a.active {
-    background-color: #b7b7b7;
-    color: #ffffff;
+#pop-toggle-container li p, span {
+    font-size: 12px;
 }
 
-#menu a.active:hover {
-    background-color: #dbdbdb;
+#lihtc-toggle{
+    color: rgba(237, 23, 176, 1);
+}
+
+#tweet-toggle{
+    color: rgba(23, 179, 237, 1);
+}
+#emoji-toggle{
+    color: rgb(100,100,100);
+}
+
+#lihtc-toggle.deactivated{
+    color:rgb(100,100,100);
+}
+
+#tweet-toggle.deactivated{
+    color:rgb(100,100,100);
+}
+
+.mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }

@@ -8,15 +8,62 @@
     <title>Measuring Sentiments</title>
     
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700|Open+Sans:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.js'></script>
 	<link href='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  	<link href='style.css' rel='stylesheet' />
 </head>
 <body>
 
 	<div id='map'></div>
-	<div id='toggle-container'>
-		<nav id="menu"></nav>
+	<div class='toggle-container' id='point-toggle-container'>
+		<ul>
+            <li><span><i class="fa fa-check-circle" id="lihtc-toggle"></i></span></li>
+            <li><p>LIHTC</p></li>
+        </ul>
+        <ul>
+            <li><span><i class="fa fa-check-circle" id="tweet-toggle"></i></span></li>
+            <li><p>Tweets</p></li>
+        </ul>
+	</div>
+
+	<div class='toggle-container' id="emoji-toggle-container">
+		<ul>
+            <li><span><i class="fa fa-circle-thin" id="emoji-toggle"></i></span></li>
+            <li><p>Sentiment Score</p></li>
+        </ul>
+        <div id='gradient-legend'></div>
+	</div>
+
+<!-- 	<div class='toggle-container' id='area-toggle-container'>
+		<ul>
+            <li><span><i class="fa fa-check-circle-o" id="c-area-toggle"></i></span></li>
+            <li><p>Commercial Tweets/Area</p></li>
+        </ul>
+        <ul>
+            <li><span><i class="fa fa-check-circle-o" id="r-area-toggle"></i></span></li>
+            <li><p>Residential Tweets/Area</p></li>
+        </ul>
+        <ul>
+            <li><span><i class="fa fa-check-circle-o" id="cr-area-toggle"></i></span></li>
+            <li><p>C&R Tweets/Area</p></li>
+        </ul>
+        <p>(Number of Tweets/Acre)</p>
+	</div>
+
+	<div class='toggle-container' id='pop-toggle-container'>
+		<ul>
+            <li><span><i class="fa fa-circle-thin" id="lihtc-pop-toggle"></i></span></li>
+            <li><p>LIHTC Tweet Density</p></li>
+        </ul>
+        <ul>
+            <li><span><i class="fa fa-circle-thin" id="res-pop-toggle"></i></span></li>
+            <li><p>Other Residential Tweet Density</p></li>
+        </ul>
+        <p>(Number of Tweets/Thousand Persons)</p>
+	</div> -->
+	<div class="histo-container">
 	</div>
 	<script src='map.js'></script>
 </body>
