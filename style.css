@@ -22,23 +22,16 @@ html, body {
 }
 #emoji-toggle-container{
     position: absolute;
-    width:150px;
-    left:100px;
+    width:250px;
+    left:180px;
     height:15%;
     padding:10px;
     padding-top: 40px;
 }
-#area-toggle-container{
-    position: absolute;
-    left:300px;
-    width:200px;
-    height:15%;
-    padding:10px;
-}
-#pop-toggle-container{
-    position: absolute;
-    left:520px;
-    width:200px;
+
+#nav-container{
+    width:240px;
+    margin:auto;
     height:15%;
     padding:10px;
     padding-top: 25px;
@@ -62,7 +55,7 @@ html, body {
     margin:0;
 }
 
-.toggle-container ul li span{
+.left-button{
     display: block;
     position:absolute;
     width:20px;
@@ -78,22 +71,23 @@ html, body {
     text-align: center;
 }
 
-#emoji-toggle-container li p, span {
-    font-size: 12px;
+#emoji-toggle-container li p{
+    font-size: 14px;
 }
 
-#gradient-legend{
+#gradient-legend li p{
+    font-size: 9px;
+}
+
+#gradient-legend-span{
+    display:inline-block;
     position:relative;
-    width:100px;
+    width:80px;
     height: 10px;
-    top:10px;
-    left:30px;
+    top:2px;
+    left:25px;
     background: -webkit-linear-gradient(left, #4575b4, #91bfdb, #e0f3f8, #ffffbf, #fee090, #fc8d59, #d73027);
     background: linear-gradient(to right, #4575b4, #91bfdb, #e0f3f8, #ffffbf, #fee090, #fc8d59, #d73027);
-}
-
-#pop-toggle-container li p, span {
-    font-size: 12px;
 }
 
 #lihtc-toggle{
@@ -103,16 +97,42 @@ html, body {
 #tweet-toggle{
     color: rgba(23, 179, 237, 1);
 }
-#emoji-toggle{
-    color: rgb(100,100,100);
+#emoji-toggle, #heatmap-toggle{
+    color: rgba(244, 182, 66, 1);
 }
 
-#lihtc-toggle.deactivated{
+#lihtc-toggle.deactivated, #tweet-toggle.deactivated, #emoji-toggle.deactivated, #heatmap-toggle.deactivated{
     color:rgb(100,100,100);
 }
 
-#tweet-toggle.deactivated{
+.nav-button {
+    position:relative;
+    width:20px;
+    font-size:18px;
     color:rgb(100,100,100);
+    cursor:pointer
+}
+
+.nav-dots{
+    width: 12px;
+    height: 12px;
+}
+
+.nav-dots-circle{
+    cx: 6;
+    cy: 6;
+    r: 5;
+    stroke: rgb(150, 150, 150);
+    stroke-width: 1;
+    fill: none;
+}
+
+h4{
+    margin-top: 10px;
+}
+
+.filled{
+    fill: rgb(150,150,150);
 }
 
 .mapboxgl-popup {

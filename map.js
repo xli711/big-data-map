@@ -39,133 +39,6 @@ map.on('load', function () {
         }
     });
 
-	// map.addSource('planDistArea', {
- //        type: 'geojson',
- //        data: 'geojsons/pd_density_area.geojson'
- //    });
- //    map.addLayer({
- //        'id': 'planDistAreaC',
- //        'type': 'fill',
- //        'source': 'planDistArea',
- //        'layout': {
- //            'visibility': 'none'
- //        },
- //        'paint': {
- //            'fill-color': {
- //            	'property': 'tw_c_acre',
- //            	'stops':[
- //            		[0, '#f2f2f2'],
- //            		[0.116, '#d3d3d3'],
- //                    [0.282, '#cccccc'],
- //            		[0.682, '#b2b2b2'],
- //                    [1.498, '#9b9b9b'],
- //                    [2.465, '#878787']
- //            	]            	
- //        	},
- //        	'fill-outline-color': '#fff',
- //            'fill-opacity': 1
- //        }
- //    });
-
- //    map.addLayer({
- //        'id': 'planDistAreaR',
- //        'type': 'fill',
- //        'source': 'planDistArea',
- //        'layout': {
- //            'visibility': 'none'
- //        },
- //        'paint': {
- //            'fill-color': {
- //                'property': 'tw_r_acre',
- //                'stops':[
- //                    [0, '#f2f2f2'],
- //                    [0.02, '#d3d3d3'],
- //                    [0.06, '#cccccc'],
- //                    [0.10, '#b2b2b2'],
- //                    [0.46, '#9b9b9b'],
- //                    [0.79, '#878787']
- //                ]               
- //            },
- //            'fill-outline-color': '#fff',
- //            'fill-opacity': 1
- //        }
- //    });
-
- //     map.addLayer({
- //        'id': 'planDistAreaCR',
- //        'type': 'fill',
- //        'source': 'planDistArea',
- //        'layout': {
- //            'visibility': 'none'
- //        },
- //        'paint': {
- //            'fill-color': {
- //                'property': 'tw_cr_area',
- //                'stops':[
- //                    [0, '#f2f2f2'],
- //                    [0.02, '#d3d3d3'],
- //                    [0.868, '#cccccc'],
- //                    [1.654, '#b2b2b2'],
- //                    [3.852, '#9b9b9b'],
- //                    [4.671, '#878787']
- //                ]               
- //            },
- //            'fill-outline-color': '#fff',
- //            'fill-opacity': 1
- //        }
- //    });
-
- //    map.addSource('planDistPop', {
- //        type: 'geojson',
- //        data: 'geojsons/pd_density_pop.geojson'
- //    });
- //    map.addLayer({
- //        'id': 'planDistPopL',
- //        'type': 'fill',
- //        'source': 'planDistPop',
- //        'layout': {
- //            'visibility': 'none'
- //        },
- //        'paint': {
- //            'fill-color': {
- //                'property': 'lithc_d',
- //                'stops':[
- //                    [0, '#f2f2f2'],
- //                    [2.045, '#d3d3d3'],
- //                    [4.43, '#cccccc'],
- //                    [8.343, '#b2b2b2'],
- //                    [13.896, '#9b9b9b'],
- //                    [59.208, '#878787']
- //                ]               
- //            },
- //            'fill-outline-color': '#fff',
- //            'fill-opacity': 1
- //        }
- //    });
- //    map.addLayer({
- //        'id': 'planDistPopR',
- //        'type': 'fill',
- //        'source': 'planDistPop',
- //        'layout': {
- //            'visibility': 'none'
- //        },
- //        'paint': {
- //            'fill-color': {
- //                'property': 'tw_density',
- //                'stops':[
- //                    [0, '#f2f2f2'],
- //                    [0.2192, '#d3d3d3'],
- //                    [1.1148, '#cccccc'],
- //                    [2.1403, '#b2b2b2'],
- //                    [3.5419, '#9b9b9b'],
- //                    [5.6567, '#878787']
- //                ]               
- //            },
- //            'fill-outline-color': '#fff',
- //            'fill-opacity': 1
- //        }
- //    });
-
     map.addSource('lihtc', {
         type: 'geojson',
         data: 'geojsons/lihtc.geojson'
@@ -229,24 +102,23 @@ map.on('load', function () {
             },
             'circle-color': {
                 property: 'average_s',
-                type: 'interval',
+                type: 'exponential',
                 stops: [
-                    [-0.25, '#4575b4'],
-                    [-0.02, '#91bfdb'],
-                    [0.19, '#e0f3f8'],
+                    [-0.25, '#d73027'],
+                    [-0.02, '#fc8d59'],
+                    [0.19, '#fee090'],
                     [0.34, '#ffffbf'],
-                    [0.47, '#fee090'],
-                    [0.6, '#fc8d59'],
-                    [0.78, '#d73027']
+                    [0.47, '#e0f3f8'],
+                    [0.6, '#91bfdb'],
+                    [0.78, '#4575b4']
                     ]
             }
         }
     });
-
 });
 
 map.on('zoomend', function(){
-    
+
     var popup = new mapboxgl.Popup({
         closeButton: false,
         closeOnClick: false
@@ -273,116 +145,193 @@ map.on('zoomend', function(){
 });
 
 //TOGGLE POINT LAYERS
-$('#lihtc-toggle').on('click', function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    var clickedLayer = 'lihtc'
-    var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-    if (visibility === 'visible') {
-        map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-        $('#lihtc-toggle').removeClass('fa-check-circle').addClass('fa-check-circle-o').addClass('deactivated');
-    } else {
-        map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-        $('#lihtc-toggle').removeClass('fa-check-circle-o').addClass('fa-check-circle').removeClass('deactivated');
-    }
+$('#lihtc-toggle').on('click', function(){
+    toggleLihtc();
 });
 
-$('#tweet-toggle').on('click', function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    var clickedLayer = 'tweets'
-    var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-    if (visibility === 'visible') {
-        map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-        $('#tweet-toggle').removeClass('fa-check-circle').addClass('fa-check-circle-o').addClass('deactivated');
-        $('#emoji-toggle-container').fadeOut(600);
-    } else {
-        map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-        $('#tweet-toggle').removeClass('fa-check-circle-o').addClass('fa-check-circle').removeClass('deactivated');
-        $('#emoji-toggle-container').fadeIn(600);
-    }
+$('#tweet-toggle').on('click', function(){
+    toggleTweets();
 });
 
 $('#gradient-legend').hide();
 
 $('#emoji-toggle').on('click', function(e){
-    var clickedLayer = 'tweets_emoji'
-    var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-    if (visibility === 'visible') {
-        map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-        map.setLayoutProperty('tweets', 'visibility', 'visible');
-        $('#emoji-toggle').removeClass('fa-circle').addClass('fa-circle-thin');
-        $('#gradient-legend').fadeOut(600);
-    } else {
-        map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-        map.setLayoutProperty('tweets', 'visibility', 'none');
-        $('#emoji-toggle').removeClass('fa-circle-thin').addClass('fa-circle');
-        $('#gradient-legend').fadeIn(600);
-    }
+    toggleEmoji();
+});
+
+$('#heatmap-toggle').on('click', function(e){
+    toggleHeatmap();
 });
 
 
-//TOGGLE SHAPE LAYERS
-// $('#pop-toggle-container').hide();
+var nav = [
+{num:1, text: "Where do people tweet?"},
+{num:2, text: "Are the tweets happy?"},
+{num:3, text: "What's the pattern of the tweet sentiment?"},
+{num:4, text: "Where are LIHTC developments?"},
+{num:5, text: "Which areas have higher sentiment scores?"},
+{num:6, text: "Which areas have lower sentiment scores?"},
+{num:7, text: "Which LIHTC developments have higher sentiment scores?"},
+{num:8, text: "Which LIHTC developments have lower sentiment scores?"}
+];
 
-// function togglePD(icon){
-//     var iconId = icon.attr('id');
-//     var clickedLayer;
-//     if (iconId == 'c-area-toggle'){
-//         clickedLayer = 'planDistAreaC';
-//     } else if (iconId == 'r-area-toggle'){
-//         clickedLayer = 'planDistAreaR';
-//     } else if (iconId == 'cr-area-toggle'){
-//         clickedLayer = 'planDistAreaCR';
-//     }
+var navNum = 1;
+updateNav();
 
-//     var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-//     if (visibility === 'visible') {
-//         map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-//         icon.removeClass('fa-check-circle').addClass('fa-check-circle-o');
-//         if(clickedLayer === 'planDistAreaR'){$('#pop-toggle-container').fadeOut(600);}
-//     } else {
-//         map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-//         icon.removeClass('fa-check-circle-o').addClass('fa-check-circle');
-//         if(clickedLayer === 'planDistAreaR'){$('#pop-toggle-container').fadeIn(600);}
-//     }
-// }
+$("#nav-button-right").on('click', function(){
+    if (navNum < nav.length){
+        navNum += 1;
+        updateNav();
+    }
+    changeStep();
+});
 
-// $('#c-area-toggle').on('click', function(){
-//     togglePD($('#c-area-toggle'));
-// });
-// $('#r-area-toggle').on('click', function(){
-//     togglePD($('#r-area-toggle'));
-// });
-// $('#cr-area-toggle').on('click', function(){
-//     togglePD($('#cr-area-toggle'));
-// });
+$("#nav-button-left").on('click', function(){
+    if (navNum > 1){
+        navNum -= 1;
+        updateNav();
+    }
+    changeStep();
+});
 
-// $('#lihtc-pop-toggle').on('click', function(e){
-//     var clickedLayer = 'planDistPopL'
-//     var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-//     if (visibility === 'visible') {
-//         map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-//         map.setLayoutProperty('planDistAreaR', 'visibility', 'visible');
-//         $('#lihtc-pop-toggle').removeClass('fa-circle').addClass('fa-circle-thin');
-//     } else {
-//         map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-//         map.setLayoutProperty('planDistAreaR', 'visibility', 'none');
-//         $('#lihtc-pop-toggle').removeClass('fa-circle-thin').addClass('fa-circle');
-//     }
-// });
-// $('#res-pop-toggle').on('click', function(e){
-//     var clickedLayer = 'planDistPopR'
-//     var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-//     if (visibility === 'visible') {
-//         map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-//         map.setLayoutProperty('planDistAreaR', 'visibility', 'visible');
-//         $('#res-pop-toggle').removeClass('fa-circle').addClass('fa-circle-thin');
-//     } else {
-//         map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
-//         map.setLayoutProperty('planDistAreaR', 'visibility', 'none');
-//         $('#res-pop-toggle').removeClass('fa-circle-thin').addClass('fa-circle');
-//     }
-// });
+function changeStep(){
+    if (navNum === 1){
+        map.easeTo({
+            center: [-75.156090, 39.978720],
+            zoom: 11,
+            easing: easing
+        });
+        map.setLayoutProperty('heatmap', 'visibility', 'none');
+        map.setLayoutProperty('lihtc', 'visibility', 'none');
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'none');
+        map.setLayoutProperty('tweets', 'visibility', 'visible');
+        updateToggles();
+    }
+
+    if (navNum === 2){
+        map.easeTo({
+            center: [-75.156090, 39.978720],
+            zoom: 11,
+            easing: easing
+        });
+        map.setLayoutProperty('heatmap', 'visibility', 'none');
+        map.setLayoutProperty('lihtc', 'visibility', 'none');
+        map.setLayoutProperty('tweets', 'visibility', 'none');
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'visible');
+        updateToggles();
+    }
+
+    if (navNum === 3){
+        map.easeTo({
+            center: [-75.156090, 39.978720],
+            zoom: 11,
+            easing: easing
+        });
+        map.setLayoutProperty('heatmap', 'visibility', 'visible');
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'none');
+        map.setLayoutProperty('tweets', 'visibility', 'none');
+        map.setLayoutProperty('lihtc', 'visibility', 'none');
+        updateToggles();
+    }
+
+    if (navNum === 4){
+        map.easeTo({
+            center: [-75.156090, 39.978720],
+            zoom: 11,
+            easing: easing
+        });
+        map.setLayoutProperty('heatmap', 'visibility', 'none');
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'none');
+        map.setLayoutProperty('tweets', 'visibility', 'none');
+        map.setLayoutProperty('lihtc', 'visibility', 'visible');
+        updateToggles();
+    }
+}
+
+function easing(t) {
+    return t * (2 - t);
+}
+
+
+function updateNav(){
+    for (var idx in nav){
+        if (nav[idx].num == navNum){
+            $("#"+nav[idx].num.toString()).addClass("filled");
+            $("#nav-title").html(nav[idx].text);
+        } else {
+            $("#"+nav[idx].num.toString()).removeClass("filled");
+        }
+    }
+}
+
+function toggleTweets(){
+    if (map.getLayoutProperty('tweets', 'visibility') === 'visible') {
+        map.setLayoutProperty('tweets', 'visibility', 'none');
+    } else{
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'none');
+        map.setLayoutProperty('tweets', 'visibility', 'visible');
+    }
+    updateToggles();
+}
+
+function toggleEmoji(){
+    if (map.getLayoutProperty('tweets_emoji', 'visibility') === 'visible') {
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'none');
+    } else {
+        map.setLayoutProperty('tweets', 'visibility', 'none');
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'visible');
+    }
+    updateToggles();
+}
+
+function toggleLihtc(){
+    if (map.getLayoutProperty('lihtc', 'visibility') === 'visible') {
+        map.setLayoutProperty('lihtc', 'visibility', 'none');
+    } else {
+        map.setLayoutProperty('lihtc', 'visibility', 'visible');
+    }
+    updateToggles();
+}
+
+function toggleHeatmap(){
+    if (map.getLayoutProperty('heatmap', 'visibility') === 'visible') {
+        map.setLayoutProperty('heatmap', 'visibility', 'none');
+    } else {
+        map.setLayoutProperty('heatmap', 'visibility', 'visible');
+    }
+    updateToggles();
+}
+
+function updateToggles(){
+    if (map.getLayoutProperty('tweets', 'visibility') === 'visible'){
+        $('#tweet-toggle').removeClass('fa-circle-o').addClass('fa-check-circle').removeClass('deactivated');
+    } else {
+        $('#tweet-toggle').removeClass('fa-check-circle').addClass('fa-circle-o').addClass('deactivated');
+    }
+
+    if (map.getLayoutProperty('lihtc', 'visibility') === 'visible'){
+        $('#lihtc-toggle').removeClass('fa-circle-o').addClass('fa-check-circle').removeClass('deactivated');
+    } else {
+        $('#lihtc-toggle').removeClass('fa-check-circle').addClass('fa-circle-o').addClass('deactivated');
+    }
+
+    if (map.getLayoutProperty('tweets_emoji', 'visibility') === 'visible'){
+        $('#emoji-toggle').removeClass('fa-circle-o').addClass('fa-check-circle').removeClass('deactivated');
+    } else {
+        $('#emoji-toggle').removeClass('fa-check-circle').addClass('fa-circle-o').addClass('deactivated'); 
+    }
+
+    if (map.getLayoutProperty('heatmap', 'visibility') === 'visible'){
+        $('#heatmap-toggle').removeClass('fa-circle-o').addClass('fa-check-circle').removeClass('deactivated');
+    } else {
+        $('#heatmap-toggle').removeClass('fa-check-circle').addClass('fa-circle-o').addClass('deactivated');
+    }
+
+    if ((map.getLayoutProperty('heatmap', 'visibility') === 'visible') || (map.getLayoutProperty('tweets_emoji', 'visibility') === 'visible')){
+        $('#gradient-legend').fadeIn(500);
+    } else{
+        $('#gradient-legend').fadeOut(500);
+    }
+}
 
 

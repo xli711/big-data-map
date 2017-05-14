@@ -19,50 +19,53 @@
 	<div id='map'></div>
 	<div class='toggle-container' id='point-toggle-container'>
 		<ul>
-            <li><span><i class="fa fa-check-circle" id="lihtc-toggle"></i></span></li>
+            <li><span class="left-button"><i class="fa fa-circle-o deactivated" id="lihtc-toggle"></i></span></li>
             <li><p>LIHTC</p></li>
         </ul>
         <ul>
-            <li><span><i class="fa fa-check-circle" id="tweet-toggle"></i></span></li>
+            <li><span class="left-button"><i class="fa fa-check-circle" id="tweet-toggle"></i></span></li>
             <li><p>Tweets</p></li>
+        </ul>
+        <ul>
+            <li><span class="left-button"><i class="fa fa-circle-o deactivated" id="heatmap-toggle"></i></span></li>
+            <li><p>Sentiment Heatmap</p></li>
         </ul>
 	</div>
 
 	<div class='toggle-container' id="emoji-toggle-container">
 		<ul>
-            <li><span><i class="fa fa-circle-thin" id="emoji-toggle"></i></span></li>
+            <li><span class="left-button"><i class="fa fa-circle-o deactivated" id="emoji-toggle"></i></span></li>
             <li><p>Sentiment Score</p></li>
         </ul>
-        <div id='gradient-legend'></div>
+        <ul id='gradient-legend'>
+            <li>
+                <p>positive</p>
+                <span id='gradient-legend-span'></span>
+                <p>negative</p>
+            </li>
+        </ul>
 	</div>
 
-<!-- 	<div class='toggle-container' id='area-toggle-container'>
-		<ul>
-            <li><span><i class="fa fa-check-circle-o" id="c-area-toggle"></i></span></li>
-            <li><p>Commercial Tweets/Area</p></li>
+    <div class='toggle-container' id="nav-container">
+        <ul style="text-align:center">
+            <li style="display:inline-block">
+                <span class="nav-button" id="nav-button-left"><i class="fa fa-chevron-circle-left"></i></span>
+                <svg class="nav-dots"><circle class="nav-dots-circle" id='1'/></svg>
+                <svg class="nav-dots"><circle class="nav-dots-circle" id='2'/></svg>
+                <svg class="nav-dots"><circle class="nav-dots-circle" id='3'/></svg>
+                <svg class="nav-dots"><circle class="nav-dots-circle" id='4'/></svg>
+                <svg class="nav-dots"><circle class="nav-dots-circle" id='5'/></svg>
+                <svg class="nav-dots"><circle class="nav-dots-circle" id='6'/></svg>
+                <svg class="nav-dots"><circle class="nav-dots-circle" id='7'/></svg>
+                <svg class="nav-dots"><circle class="nav-dots-circle" id='8'/></svg>
+                <span class="nav-button" id="nav-button-right"><i class="fa fa-chevron-circle-right"></i></span>
+            </li>
+            <li>
+                <h4 id="nav-title"></h4>
+            </li>
         </ul>
-        <ul>
-            <li><span><i class="fa fa-check-circle-o" id="r-area-toggle"></i></span></li>
-            <li><p>Residential Tweets/Area</p></li>
-        </ul>
-        <ul>
-            <li><span><i class="fa fa-check-circle-o" id="cr-area-toggle"></i></span></li>
-            <li><p>C&R Tweets/Area</p></li>
-        </ul>
-        <p>(Number of Tweets/Acre)</p>
-	</div>
+    </div>
 
-	<div class='toggle-container' id='pop-toggle-container'>
-		<ul>
-            <li><span><i class="fa fa-circle-thin" id="lihtc-pop-toggle"></i></span></li>
-            <li><p>LIHTC Tweet Density</p></li>
-        </ul>
-        <ul>
-            <li><span><i class="fa fa-circle-thin" id="res-pop-toggle"></i></span></li>
-            <li><p>Other Residential Tweet Density</p></li>
-        </ul>
-        <p>(Number of Tweets/Thousand Persons)</p>
-	</div> -->
 	<div class="histo-container">
 	</div>
 	<script src='map.js'></script>
