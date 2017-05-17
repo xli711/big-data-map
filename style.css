@@ -30,11 +30,21 @@ html, body {
 }
 
 #nav-container{
+    position: absolute;
+    left:430px;
     width:240px;
     margin:auto;
     height:15%;
     padding:10px;
     padding-top: 25px;
+}
+
+#barchart-container{
+    position: absolute;
+    width:400px;
+    height:15%;
+    right: 0;
+    padding:10px;
 }
 
 .toggle-container ul{
@@ -138,4 +148,24 @@ h4{
 .mapboxgl-popup {
     max-width: 400px;
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+img.emoji {  
+  display: inline !important;
+  height: 1em;
+   width: 1em;
+   margin: 0 .05em 0 .1em;
+   vertical-align: -0.1em;
+}
+
+.bar {
+  fill: rgba(0,0,0,0.3);
+}
+
+.bar:hover {
+  fill: rgba(237, 23, 176, 0.6);
+}
+
+.axis--x path {
+  display: none;
 }

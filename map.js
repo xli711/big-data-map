@@ -52,15 +52,32 @@ map.on('load', function () {
         },
         'paint': {
             'circle-radius': {
-            	'property': 'N_UNITS',
-            	'stops': [
-			      [{zoom: 12, value: 0}, 2],
-			      [{zoom: 12, value: 200}, 10],
-			      [{zoom: 22, value: 0}, 30],
-			      [{zoom: 22, value: 200}, 60]
-			    ]
+                'base': 0.8,
+                'stops': [[12, 2], [22, 30]]
+       //       'property': 'tw_densi_1',
+       //       'stops': [
+                //   [{zoom: 12, value: 0}, 2],
+                //   [{zoom: 12, value: 479}, 10],
+                //   [{zoom: 22, value: 0}, 30],
+                //   [{zoom: 22, value: 479}, 60]
+                // ]
             },
-            'circle-color': 'rgba(237, 23, 176, 0.4)'
+
+            'circle-color': 'rgba(237, 23, 176, 1)',
+            // {
+            //     property: 'MEAN_tw_de',
+            //     type: 'exponential',
+            //     stops: [
+            //         [-0.17, '#d73027'],
+            //         [-0.01, '#fc8d59'],
+            //         [0.22, '#fee090'],
+            //         [0.34, '#ffffbf'],
+            //         [0.43, '#e0f3f8'],
+            //         [0.57, '#91bfdb'],
+            //         [0.74, '#4575b4']
+            //     ]
+            // },
+            'circle-opacity': 0.6
         }
     });
 
@@ -86,7 +103,7 @@ map.on('load', function () {
 
     map.addSource('tweets_emoji', {
         type: 'geojson',
-        data: 'geojsons/tweets_emoji.geojson'
+        data: 'geojsons/tw_show_emoji.geojson'
     });
     map.addLayer({
         'id': 'tweets_emoji',
@@ -117,6 +134,8 @@ map.on('load', function () {
     });
 });
 
+var layerIDs = ['heatmap', 'lihtc', 'tweets', 'tweets_emoji'];
+
 map.on('zoomend', function(){
 
     var popup = new mapboxgl.Popup({
@@ -124,20 +143,44 @@ map.on('zoomend', function(){
         closeOnClick: false
     });
 
-    map.on('mouseenter', 'tweets', function(e) {
-        if (map.getZoom() > 14){
+    // map.on('mouseenter', 'tweets', function(e) {
+    //     if (map.getZoom() > 14){
+    //         // Change the cursor style as a UI indicator.
+    //         map.getCanvas().style.cursor = 'pointer';
+
+    //         // Populate the popup and set its coordinates
+    //         // based on the feature found.
+    //         //twemoji.size = '16x16';
+    //         var content = twemoji.parse(e.features[0].properties.content);
+
+    //         popup.setLngLat(e.features[0].geometry.coordinates)
+    //         .setHTML(content)
+    //         .addTo(map);
+    //     }
+    // });
+
+    // map.on('mouseleave', 'tweets', function() {
+    //     map.getCanvas().style.cursor = '';
+    //     popup.remove();
+    // });
+
+    map.on('mouseenter', 'tweets_emoji', function(e) {
+        if (map.getZoom() > 13){
             // Change the cursor style as a UI indicator.
             map.getCanvas().style.cursor = 'pointer';
 
             // Populate the popup and set its coordinates
             // based on the feature found.
-                popup.setLngLat(e.features[0].geometry.coordinates)
-                .setHTML(e.features[0].properties.content)
-                .addTo(map);
+            //twemoji.size = '16x16';
+            var content = twemoji.parse(e.features[0].properties.content);
+
+            popup.setLngLat(e.features[0].geometry.coordinates)
+            .setHTML(content)
+            .addTo(map);
         }
     });
 
-    map.on('mouseleave', 'tweets', function() {
+    map.on('mouseleave', 'tweets_emoji', function() {
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
@@ -196,10 +239,9 @@ $("#nav-button-left").on('click', function(){
 
 function changeStep(){
     if (navNum === 1){
-        map.easeTo({
+        map.flyTo({
             center: [-75.156090, 39.978720],
-            zoom: 11,
-            easing: easing
+            zoom: 11
         });
         map.setLayoutProperty('heatmap', 'visibility', 'none');
         map.setLayoutProperty('lihtc', 'visibility', 'none');
@@ -209,10 +251,9 @@ function changeStep(){
     }
 
     if (navNum === 2){
-        map.easeTo({
+        map.flyTo({
             center: [-75.156090, 39.978720],
-            zoom: 11,
-            easing: easing
+            zoom: 11
         });
         map.setLayoutProperty('heatmap', 'visibility', 'none');
         map.setLayoutProperty('lihtc', 'visibility', 'none');
@@ -222,10 +263,9 @@ function changeStep(){
     }
 
     if (navNum === 3){
-        map.easeTo({
+        map.flyTo({
             center: [-75.156090, 39.978720],
-            zoom: 11,
-            easing: easing
+            zoom: 11
         });
         map.setLayoutProperty('heatmap', 'visibility', 'visible');
         map.setLayoutProperty('tweets_emoji', 'visibility', 'none');
@@ -235,10 +275,9 @@ function changeStep(){
     }
 
     if (navNum === 4){
-        map.easeTo({
+        map.flyTo({
             center: [-75.156090, 39.978720],
-            zoom: 11,
-            easing: easing
+            zoom: 11
         });
         map.setLayoutProperty('heatmap', 'visibility', 'none');
         map.setLayoutProperty('tweets_emoji', 'visibility', 'none');
@@ -246,11 +285,56 @@ function changeStep(){
         map.setLayoutProperty('lihtc', 'visibility', 'visible');
         updateToggles();
     }
+
+    if (navNum === 5){
+        map.flyTo({
+            center: [-75.140036, 39.966272],
+            zoom: 14.5
+        });
+        map.setLayoutProperty('heatmap', 'visibility', 'visible');
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'visible');
+        map.setLayoutProperty('tweets', 'visibility', 'none');
+        map.setLayoutProperty('lihtc', 'visibility', 'none');
+        updateToggles();
+    }
+
+    if (navNum === 6){
+        map.flyTo({
+            center: [-75.098952, 39.999714],
+            zoom: 14.5
+        });
+        map.setLayoutProperty('heatmap', 'visibility', 'visible');
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'visible');
+        map.setLayoutProperty('tweets', 'visibility', 'none');
+        map.setLayoutProperty('lihtc', 'visibility', 'none');
+        updateToggles();
+    }
+
+    if (navNum === 7){
+        map.flyTo({
+            center: [-75.200837, 39.961718],
+            zoom: 14.5
+        });
+        map.setLayoutProperty('heatmap', 'visibility', 'visible');
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'visible');
+        map.setLayoutProperty('tweets', 'visibility', 'none');
+        map.setLayoutProperty('lihtc', 'visibility', 'none');
+        updateToggles();
+    }
+
+    if (navNum === 8){
+        map.flyTo({
+            center: [-75.156570, 40.019997],
+            zoom: 14.5
+        });
+        map.setLayoutProperty('heatmap', 'visibility', 'visible');
+        map.setLayoutProperty('tweets_emoji', 'visibility', 'visible');
+        map.setLayoutProperty('tweets', 'visibility', 'none');
+        map.setLayoutProperty('lihtc', 'visibility', 'none');
+        updateToggles();
+    }
 }
 
-function easing(t) {
-    return t * (2 - t);
-}
 
 
 function updateNav(){
@@ -334,4 +418,57 @@ function updateToggles(){
     }
 }
 
+barChart();
 
+function barChart(){
+    var svg = d3.select("#barchart"),
+      margin = {top: 10, right: 10, bottom: 10, left: 10},
+      width = +svg.attr("width") - margin.left - margin.right,
+      height = +svg.attr("height") - margin.top - margin.bottom;
+      
+
+    var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+      y = d3.scaleLinear().rangeRound([height, 0]);
+
+    var g = svg.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    d3.json("geojsons/lihtc.geojson", function(error, data) {
+    data = data.features;
+    
+    //filter out the ones without tweets
+    function notZero(data){
+        return data.properties.tw_densi_1 > 0;
+    }
+    data = data.filter(notZero);
+    //console.log(data);
+    //if (error) throw error;
+
+    x.domain(data.map(function(d) { return d.length; }));
+    y.domain([0, d3.max(data, function(d) { return d.properties.tw_densi_1; })]);
+
+    // g.append("g")
+    //     .attr("class", "axis axis--x")
+    //     .attr("transform", "translate(0," + height + ")")
+    //     .call(d3.axisBottom(x));
+
+    // g.append("g")
+    //     .attr("class", "axis axis--y")
+    //     .call(d3.axisLeft(y).ticks(10, "%"))
+    //   .append("text")
+    //     .attr("transform", "rotate(-90)")
+    //     .attr("y", 6)
+    //     .attr("dy", "0.71em")
+    //     .attr("text-anchor", "end")
+    //     .text("Density");
+
+    g.selectAll(".bar")
+      .data(data)
+      .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d,i) { return i*7; })
+        .attr("y", function(d) { return y(d.properties.tw_densi_1); })
+        .attr("width", 6)
+        .attr("height", function(d) { return height - y(d.properties.tw_densi_1); });
+    });
+}
